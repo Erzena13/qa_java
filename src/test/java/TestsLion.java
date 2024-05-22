@@ -8,17 +8,21 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestsLion {
     @Mock
     private Feline feline;
-
-    @Test(expected = Exception.class)
-    public void testLionConstructorThrowsExceptionForInvalidSex() throws Exception {
-        // Пробуем создать объект Lion с недопустимым значением пола и ожидаем исключение
-        new Lion("Некорректный пол", feline);
+    @Test
+    public void testLionConstructorThrowsExceptionForInvalidSex() {
+        try {
+            new Lion("Некорректный пол", feline);
+            Assert.fail("Expected exception was not thrown");
+        } catch (Exception e) {
+            Assert.assertEquals("Используйте допустимые значения пола животного - самей или самка", e.getMessage());
+        }
     }
 
     @Test
